@@ -1,16 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.movie.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.movie.GuiController">
+   <children>
+      <Pane fx:id="home" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="homeCustBut" layoutX="223.0" layoutY="115.0" mnemonicParsing="false" onAction="#clickHomeCusBut" prefHeight="60.0" prefWidth="140.0" text="Customer">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Button>
+            <Button fx:id="homeStaffBut" layoutX="223.0" layoutY="230.0" mnemonicParsing="false" onAction="#clickHomeStaffBut" prefHeight="60.0" prefWidth="140.0" text="Staff">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Button>
+            <Label layoutX="88.0" layoutY="29.0" prefHeight="49.0" prefWidth="462.0" text="Movie Ticket Booking Management System">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="ifAccount" prefHeight="400.0" prefWidth="600.0" visible="false">
+         <children>
+            <Button fx:id="signInBut" layoutX="223.0" layoutY="82.0" mnemonicParsing="false" onAction="#clickSignInBut" prefHeight="60.0" prefWidth="133.0" text="sign in">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Button>
+            <Button fx:id="signUpBut" layoutX="223.0" layoutY="161.0" mnemonicParsing="false" onAction="#clickSignUpBut" prefHeight="60.0" prefWidth="133.0" text="sign up">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Button>
+            <Button fx:id="guestBut" layoutX="223.0" layoutY="240.0" mnemonicParsing="false" onAction="#clickGuestBut" prefHeight="60.0" prefWidth="133.0" text="I am guest">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Button>
+            <Label layoutX="194.0" layoutY="14.0" prefHeight="43.0" prefWidth="213.0" text="Customer  Page">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <Button fx:id="backTohomeBut" layoutX="253.0" layoutY="325.0" mnemonicParsing="false" onAction="#clickBackToHomeBut" prefHeight="32.0" prefWidth="74.0" text="back" />
+         </children>
+      </Pane>
+      <Pane fx:id="signIn" prefHeight="400.0" prefWidth="600.0" visible="false">
+         <children>
+            <Label layoutX="107.0" layoutY="190.0" prefHeight="43.0" prefWidth="87.0" text="Password">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label layoutX="107.0" layoutY="125.0" prefHeight="32.0" prefWidth="87.0" text="Username">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label layoutX="223.0" layoutY="23.0" prefHeight="43.0" prefWidth="133.0" text="Sign in">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <TextField fx:id="usernameInput" layoutX="194.0" layoutY="129.0" />
+            <TextField fx:id="passwordInput" layoutX="194.0" layoutY="199.0" />
+            <Button fx:id="logInBut" layoutX="194.0" layoutY="262.0" mnemonicParsing="false" onAction="#clickLogInBut" prefHeight="49.0" prefWidth="149.0" text="Log in !">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="backToCusBut" layoutX="223.0" layoutY="325.0" mnemonicParsing="false" onAction="#clickBackToCuBut" prefHeight="43.0" prefWidth="99.0" text="back">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane fx:id="staffSigninPane" prefHeight="400.0" prefWidth="600.0" visible="false">
+         <children>
+            <Label layoutX="107.0" layoutY="190.0" prefHeight="43.0" prefWidth="87.0" text="Password">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="107.0" layoutY="125.0" prefHeight="32.0" prefWidth="87.0" text="Username">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="223.0" layoutY="23.0" prefHeight="43.0" prefWidth="133.0" text="Staff Sign in">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <TextField fx:id="staffUserNaInput" layoutX="194.0" layoutY="129.0" />
+            <TextField fx:id="staffPWinput" layoutX="194.0" layoutY="199.0" />
+            <Button fx:id="staffLoginBut" layoutX="194.0" layoutY="262.0" mnemonicParsing="false" onAction="#clickStaffLoginBut" prefHeight="49.0" prefWidth="149.0" text="Log in !">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="backToHome2But" layoutX="238.0" layoutY="337.0" mnemonicParsing="false" onAction="#clickBackToHome2But" prefHeight="32.0" prefWidth="74.0" text="back" />
+         </children>
+      </Pane>
+      <Pane fx:id="signupPane" prefHeight="400.0" prefWidth="600.0" visible="false">
+         <children>
+            <Label layoutX="107.0" layoutY="179.0" prefHeight="43.0" prefWidth="87.0" text="Password">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="107.0" layoutY="125.0" prefHeight="32.0" prefWidth="87.0" text="Username">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="223.0" layoutY="23.0" prefHeight="43.0" prefWidth="133.0" text="Sign up">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <TextField fx:id="suUserNaInput" layoutX="194.0" layoutY="129.0" />
+            <TextField fx:id="suPwInput" layoutX="194.0" layoutY="188.0" />
+            <Button fx:id="registerBut" layoutX="194.0" layoutY="292.0" mnemonicParsing="false" onAction="#clickRegisterBut" prefHeight="49.0" prefWidth="149.0" text="Sign Up!">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Label layoutX="73.0" layoutY="230.0" prefHeight="43.0" prefWidth="121.0" text="Password Again">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="suPwAgInput" layoutX="194.0" layoutY="239.0" />
+            <Button fx:id="backToCus2But" layoutX="223.0" layoutY="351.0" mnemonicParsing="false" onAction="#clickBackToCus2But" prefHeight="32.0" prefWidth="99.0" text="back" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
