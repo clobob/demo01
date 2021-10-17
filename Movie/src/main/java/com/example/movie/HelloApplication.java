@@ -24,37 +24,33 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         Movie.setMovies(JsonAdapter.getMoviesFromJson("Movies.json"));
+        Movie.setUpcomingMovies(JsonAdapter.getMoviesFromJson("UpcomingMovies.json"));
 
-        String m1_synopsis = "Sardar Udham is a 2021 Indian Hindi-language"
-        +"biographical historical drama film based on the life of Udham Singh,"
-        +"a revolutionary freedom fighter highly known for assassinating Michael O'"
-        +"Dwyer in London to avenge the 1919 Jallianwala Bagh massacre in Amritsar.[1]"
-        +"Starring Vicky Kaushal as Singh, the film is directed by Shoojit Sircar and"
-        +"produced by Rising Sun Films in collaboration with Kino Works.[2] The film"
-        +"premiered on 16 October 2021 on Amazon Prime Video.";
+//        String m1_synopsis = "Ride or Die is a Japanese romance drama film written by Nami Sakkawa and directed by Ryuichi Hiroki, starring Kiko Mizuhara and Honami Sato. The film is based on Ching Nakamura's manga series Gunjō and was released by Netflix on April 15, 2021.";
+//
+//        Calendar m1_releaseDate = Calendar.getInstance();
+//        m1_releaseDate.set(2021, Calendar.APRIL , 15, 0, 0, 0);
+//
+//        Calendar m1_upcomingDate =  Calendar.getInstance();
+//        m1_upcomingDate.set(2021, Calendar.NOVEMBER, 6, 20, 30, 0);
+//
+//        Movie m1 = new Movie("Ride or Die", 142 , m1_synopsis, "Ryuichi Hiroki", new ArrayList<>(Arrays.asList("Kiko Mizuhara", "Honami Sato",
+//                "Yōko Maki", "Shunsuke Tanaka")), "Parental Guidance", "Gold", 40.00, 1, m1_releaseDate, m1_upcomingDate, new int[10][10]);
 
-        Calendar m1_releaseDate = Calendar.getInstance();
-        m1_releaseDate.set(2021, Calendar.OCTOBER, 16, 0, 0, 0);
-
-        Calendar m1_upcomingDate =  Calendar.getInstance();
-        m1_upcomingDate.set(2021, Calendar.OCTOBER, 16, 15, 30, 0);
-
-        Movie m1 = new Movie("Sardar Udham", 163, m1_synopsis, "Shoojit Sircar", new ArrayList<>(Arrays.asList("Vicky Kaushal", "Shaun Scott",
-                "Stephen Hogan", "Amol Parashar")), "General", "Gold", 40.00, 1, m1_releaseDate, m1_upcomingDate, new int[10][10]);
-
-
-        for (Movie m :Movie.getMovies()){
+        for (Movie m :Movie.getUpcomingMovies()){
             System.out.println(m.getHall());
             System.out.println(m.getUpcomingTime().getTime());
             System.out.println(m.getCast());
             System.out.println(m.getClassification());
             System.out.println(m.getLength());
+            System.out.println(m.getScreen());
             System.out.println(m.getTitle());
             System.out.println("--------------");
 
         }
 
-        JsonAdapter.writeMovies("Movies.json");
+        JsonAdapter.writeMovies("UpcomingMovies.json", Movie.getUpcomingMovies());
+        JsonAdapter.writeMovies("Movies.json", Movie.getMovies());
         //launch();
     }
 }

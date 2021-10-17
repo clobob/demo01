@@ -7,6 +7,8 @@ import java.util.*;
 public class Movie {
     @JSONField(serialize = false, deserialize = false)
     private static ArrayList<Movie> movies;
+    @JSONField(serialize = false, deserialize = false)
+    private static ArrayList<Movie> upcomingMovie;
     @JSONField(name = "title")
     private String title;
     @JSONField(name = "length")
@@ -25,9 +27,9 @@ public class Movie {
     private double price;
     @JSONField(name = "hall")
     private int hall;
-    @JSONField(name = "releaseDate", format = "ddMMyyyy")
+    @JSONField(name = "releaseDate", format = "dd-MM-yyyy")
     private Calendar releaseDate;
-    @JSONField(name = "upcomingTime", format = "HHmmEddMMyyyy")
+    @JSONField(name = "upcomingTime", format = "HH-mm-E-dd-MM-yyyy")
     private Calendar upcomingTime;
     @JSONField(name = "seats")
     private int[][] seats;
@@ -36,6 +38,8 @@ public class Movie {
     public Movie(){
         if(movies == null){
             movies = new ArrayList<>();
+        }if(upcomingMovie == null){
+            upcomingMovie = new ArrayList<>();
         }
         this.title = "not set up";
         this.length = 0;
@@ -56,6 +60,8 @@ public class Movie {
                   String classification, String screen, double price, int hall, Calendar releaseDate, Calendar upcomingTime, int[][] seats){
         if(movies == null){
             movies = new ArrayList<>();
+        }if(upcomingMovie == null){
+            upcomingMovie = new ArrayList<>();
         }
         this.title = title;
         this.length = length;
@@ -180,6 +186,12 @@ public class Movie {
         return new Pair<>(seat.getKey() + 1, seat.getValue() + 1);
     }
 
+    //get the remainder seat of the movie
+    public int getRemainderSeat(){
+        ArrayList<Pair<Integer, Integer>> emptySeats = getEmptySeat(0, 9);
+        return emptySeats.size();
+    }
+
     //cancel a seat order by input row and column
     public boolean cancelSeat(int row, int column){
         if(this.seats[row -1][column -1] == 1){
@@ -188,12 +200,51 @@ public class Movie {
         }return false;
     }
 
+    public boolean isEnd(){
+        return Calendar.getInstance().after(this.upcomingTime);
+    }
+
     public static ArrayList<Movie> getMovies() {
+        if(movies == null){
+            movies = new ArrayList<>();
+        }
         return movies;
     }
 
     public static void setMovies(ArrayList<Movie> movies) {
         Movie.movies = movies;
+    }
+
+    //get upcoming movie in 7 days
+    public static ArrayList<Movie> getUpcomingMovies() {
+        if(upcomingMovie == null){
+            upcomingMovie = new ArrayList<>();
+        }
+        Calendar now = Calendar.getInstance();
+        if(now.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY){
+            upcomingMovie = new ArrayList<>();
+            for (Movie mv : Movie.getMovies()){
+                Calendar upcomingTime = Calendar.getInstance();
+                upcomingTime.setTimeInMillis(mv.upcomingTime.getTimeInMillis());
+                upcomingTime.add(Calendar.DATE, -8);
+                if(upcomingTime.before(now)&&!mv.isEnd()){
+                    upcomingMovie.add(mv);
+                }
+            }
+        }else{
+            ArrayList<Movie> temp = new ArrayList<>();
+            for(Movie mv: upcomingMovie){
+                if(!mv.isEnd()){
+                    temp.add(mv);
+                }
+            }
+            upcomingMovie = temp;
+        }
+        return upcomingMovie;
+    }
+
+    public static void setUpcomingMovies(ArrayList<Movie> upcomingMovie) {
+        Movie.upcomingMovie = upcomingMovie;
     }
 
     public String getTitle() {

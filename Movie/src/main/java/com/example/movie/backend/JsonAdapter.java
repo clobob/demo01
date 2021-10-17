@@ -68,8 +68,8 @@ public class JsonAdapter {
     }
 
     //saved movies status
-    public static void writeMovies(String filename){
-        JSONArray temp = JSONArray.parseArray(JSON.toJSONString(Movie.getMovies()));
+    public static void writeMovies(String filename, ArrayList<Movie> movies){
+        JSONArray temp = JSONArray.parseArray(JSON.toJSONString(movies));
         String jsonArray = JSON.toJSONString(temp, SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue);
         isFileExistOrCreatIt(filename);
         String path = "src//main//resources"+"//"+ filename;
