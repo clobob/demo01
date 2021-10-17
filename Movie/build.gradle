@@ -33,6 +33,9 @@ javafx {
 }
 
 dependencies {
+    implementation('com.google.guava:guava:29.0-jre')
+    implementation('com.alibaba:fastjson:1.2.47')
+
     implementation('org.controlsfx:controlsfx:11.1.0')
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
