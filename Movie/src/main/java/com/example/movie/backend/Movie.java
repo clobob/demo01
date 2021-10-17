@@ -1,8 +1,8 @@
 package com.example.movie.backend;
 import com.alibaba.fastjson.annotation.JSONField;
+import javafx.util.Pair;
 
 import java.util.*;
-import java.sql.Date;
 
 public class Movie {
     @JSONField(serialize = false, deserialize = false)
@@ -32,7 +32,7 @@ public class Movie {
     @JSONField(name = "seats")
     private int[][] seats;
 
-
+    //!!!don't use this initialize, it is use for set up cards from Json
     public Movie(){
         if(movies == null){
             movies = new ArrayList<>();
@@ -51,6 +51,7 @@ public class Movie {
         this.seats = new int[10][10];
     }
 
+    //Initialize a movie
     public Movie(String title, int length, String synopsis, String director, ArrayList<String> cast,
                   String classification, String screen, double price, int hall, Calendar releaseDate, Calendar upcomingTime, int[][] seats){
         if(movies == null){
@@ -74,6 +75,7 @@ public class Movie {
     }
 
 
+    //Determine if a movie exists
     public static boolean isContains(Movie mv){
         if(movies == null){
             return false;
@@ -95,6 +97,95 @@ public class Movie {
             }
         }
         return false;
+    }
+
+    //filter movies by screen
+    public static ArrayList<Movie> filterMoviesByScreen(String screen){
+        ArrayList<Movie> moviesByScreen = new ArrayList<>();
+        for(Movie mv : movies){
+            if (mv.screen.equals(screen)){
+                moviesByScreen.add(mv);
+            }
+        }
+        return moviesByScreen;
+    }
+
+    //filter movies by classification
+    public static ArrayList<Movie> filterMoviesByClassification(String classification){
+        ArrayList<Movie> moviesByClassification = new ArrayList<>();
+        for(Movie mv : movies){
+            if (mv.classification.equals(classification)){
+                moviesByClassification.add(mv);
+            }
+        }
+        return moviesByClassification;
+    }
+
+    //filter movies by hall
+    public static ArrayList<Movie> filterMoviesByHall(int hall){
+        ArrayList<Movie> moviesByHall = new ArrayList<>();
+        for(Movie mv : movies){
+            if (mv.hall == hall){
+                moviesByHall.add(mv);
+            }
+        }
+        return moviesByHall;
+    }
+
+    //search movies by title
+    public static ArrayList<Movie> searchMoviesByTitle(String title){
+        ArrayList<Movie> moviesByHTitle = new ArrayList<>();
+        for(Movie mv : movies){
+            if (mv.title.equals(title)){
+                moviesByHTitle.add(mv);
+            }
+        }
+        return moviesByHTitle;
+    }
+
+    //helping method for select seat
+    public ArrayList<Pair<Integer, Integer>> getEmptySeat(int range1, int range2){
+        ArrayList<Pair<Integer, Integer>> emptySeats = new ArrayList<>();
+        for (int i = range1; i <= range2; i++){
+            for (int j = 0; j <= 9; j++){
+                if (this.seats[i][j] == 0){
+                    emptySeats.add(new Pair<>(i, j));
+                }
+            }
+        }
+        return emptySeats;
+    }
+
+    //selecting a seat by front, middle, and rear.
+    //return a pair where the key is the row and the value is column
+    //return row as -1 and column as -1 represent there are no seat
+    public Pair<Integer, Integer> selectSeat(String location){
+        ArrayList<Pair<Integer, Integer>> emptySeats;
+        switch(location){
+            case "front":
+                emptySeats = getEmptySeat(0, 2);
+                break;
+            case "middle":
+                emptySeats = getEmptySeat(3, 6);
+                break;
+            case "rear":
+                emptySeats = getEmptySeat(7, 9);
+                break;
+            default:
+                return new Pair<>(-1, -1);
+        }if (emptySeats.size() == 0){
+            return new Pair<>(-1, -1);
+        }
+        Pair<Integer, Integer> seat = emptySeats.get(new Random().nextInt(emptySeats.size()));
+        return new Pair<>(seat.getKey() + 1, seat.getValue() + 1);
+    }
+
+    //cancel a seat order by input row and column
+    public boolean cancelSeat(int row, int column){
+        if(this.seats[row -1][column -1] == 1){
+            this.seats[row -1][column -1] = 0;
+            return true;
+        }return false;
     }
 
     public static ArrayList<Movie> getMovies() {
