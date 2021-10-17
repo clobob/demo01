@@ -68,7 +68,7 @@ public class JsonAdapter {
     }
 
     //saved movies status
-    public static void writeCards(String filename){
+    public static void writeMovies(String filename){
         JSONArray temp = JSONArray.parseArray(JSON.toJSONString(Movie.getMovies()));
         String jsonArray = JSON.toJSONString(temp, SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue);
         isFileExistOrCreatIt(filename);

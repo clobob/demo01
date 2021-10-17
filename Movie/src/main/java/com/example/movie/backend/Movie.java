@@ -2,6 +2,7 @@ package com.example.movie.backend;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.*;
+import java.sql.Date;
 
 public class Movie {
     @JSONField(serialize = false, deserialize = false)
@@ -22,10 +23,12 @@ public class Movie {
     private String screen;
     @JSONField(name = "price")
     private double price;
+    @JSONField(name = "hall")
+    private int hall;
     @JSONField(name = "releaseDate", format = "ddMMyyyy")
     private Calendar releaseDate;
     @JSONField(name = "upcomingTime", format = "HHmmEddMMyyyy")
-    private Date upcomingTime;
+    private Calendar upcomingTime;
     @JSONField(name = "seats")
     private int[][] seats;
 
@@ -42,9 +45,50 @@ public class Movie {
         this.classification = "not set up";
         this.screen = "not set up";
         this.price = 0.0;
+        this.hall = 0;
         this.releaseDate = Calendar.getInstance();
-        this.upcomingTime = new Date();
+        this.upcomingTime = Calendar.getInstance();
         this.seats = new int[10][10];
+    }
+
+    public Movie(String title, int length, String synopsis, String director, ArrayList<String> cast,
+                  String classification, String screen, double price, int hall, Calendar releaseDate, Calendar upcomingTime, int[][] seats){
+        if(movies == null){
+            movies = new ArrayList<>();
+        }
+        this.title = title;
+        this.length = length;
+        this.synopsis = synopsis;
+        this.director = director;
+        this.cast = cast;
+        this.classification = classification;
+        this.screen = screen;
+        this.price = price;
+        this.hall = hall;
+        this.releaseDate = releaseDate;
+        this.upcomingTime = upcomingTime;
+        this.seats = seats;
+        if (!isContains(this)){
+            movies.add(this);
+        }
+    }
+
+
+    public static boolean isContains(Movie mv){
+        if(movies == null){
+            return false;
+        }
+        for (Movie m : movies){
+            if(m.title.equals(mv.title)
+            && m.length == mv.length
+            && m.director.equals(mv.director)
+            && m.classification.equals(mv.classification)
+            && m.screen.equals(mv.screen) && m.upcomingTime.equals(mv.upcomingTime)
+            && m.hall == mv.hall){
+                return true;
+            }
+        }
+        return false;
     }
 
     public static ArrayList<Movie> getMovies() {
@@ -119,6 +163,14 @@ public class Movie {
         this.price = price;
     }
 
+    public int getHall() {
+        return hall;
+    }
+
+    public void setHall(int hall) {
+        this.hall = hall;
+    }
+
     public Calendar getReleaseDate() {
         return releaseDate;
     }
@@ -127,11 +179,11 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-    public Date getUpcomingTime() {
+    public Calendar getUpcomingTime() {
         return upcomingTime;
     }
 
-    public void setUpcomingTime(Date upcomingTime) {
+    public void setUpcomingTime(Calendar upcomingTime) {
         this.upcomingTime = upcomingTime;
     }
 
