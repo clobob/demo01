@@ -83,8 +83,14 @@ public class Movie {
             && m.length == mv.length
             && m.director.equals(mv.director)
             && m.classification.equals(mv.classification)
-            && m.screen.equals(mv.screen) && m.upcomingTime.equals(mv.upcomingTime)
-            && m.hall == mv.hall){
+            && m.screen.equals(mv.screen)
+            && m.hall == mv.hall
+            && m.upcomingTime.get(Calendar.YEAR) == mv.upcomingTime.get(Calendar.YEAR)
+            && m.upcomingTime.get(Calendar.MONTH) == mv.upcomingTime.get(Calendar.MONTH)
+            && m.upcomingTime.get(Calendar.DATE) == mv.upcomingTime.get(Calendar.DATE)
+            && m.upcomingTime.get(Calendar.HOUR_OF_DAY) == mv.upcomingTime.get(Calendar.HOUR_OF_DAY)
+            && m.upcomingTime.get(Calendar.MINUTE) == mv.upcomingTime.get(Calendar.MINUTE)
+            && m.upcomingTime.get(Calendar.SECOND) == mv.upcomingTime.get(Calendar.SECOND)) {
                 return true;
             }
         }
