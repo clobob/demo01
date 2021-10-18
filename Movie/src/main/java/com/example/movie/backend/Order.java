@@ -9,6 +9,7 @@ public class Order {
 		setCustomer(logged);
 		setMovie(movie);
 		setSeatsIndex(seatIndex);
+		setTotalPrice(getMovie().getPrice()*getCustomer().getPeoples().size());
 	}
 	
 	private List<List<Integer>> seatsIndex;
@@ -36,7 +37,14 @@ public class Order {
 	public void setSeatsIndex(List<List<Integer>> seatsIndex) {
 		this.seatsIndex = seatsIndex;
 	}
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
+	private double totalPrice;
 	private String id;
 	private Logged customer;
 	private Movie movie;

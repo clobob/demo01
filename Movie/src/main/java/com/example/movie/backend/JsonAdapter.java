@@ -7,6 +7,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class JsonAdapter {
@@ -21,6 +22,12 @@ public class JsonAdapter {
 
     }
 
+    //convert Json object into Card class
+    public static List<User> getUserFromJson(String filename){
+    	String s = readJsonFile(filename);
+    	List<User> users = JSONObject.parseArray(s, User.class);
+    	return users;
+    }
     //check if file exit
     private static void isFileExistOrCreatIt(String fileName)  {
         if (!fileName.endsWith(".json")){
@@ -66,6 +73,7 @@ public class JsonAdapter {
         String s = readJsonFile(fileName);
         return (ArrayList<Movie>) JSONObject.parseArray(s, Movie.class);
     }
+
 
     //saved movies status
     public static void writeMovies(String filename, ArrayList<Movie> movies){

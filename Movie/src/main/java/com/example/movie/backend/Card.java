@@ -5,9 +5,9 @@ public class Card {
 	private String cardNumber;
 	private String ownerName;
 	
-	public Card(String cardNString, String owString) {
-		this.setCardNumber(cardNString);
-		this.ownerName = owString;
+	public Card(String setCardNumber, String ownerName) {
+		this.setCardNumber(setCardNumber);
+		this.ownerName = ownerName;
 	}
 
 	public String getCardNumber() {
